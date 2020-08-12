@@ -168,7 +168,7 @@
 //   }); 
 
 'use strict';
-const PAGE_ACCESS_TOKEN = "EAAE2zZCQHw8EBAOhFZBhzZCOzX7kULyHNL2bNgfE1bGn7gaWBoWHKffkyefEIvK61fdFZAFhusriSyz3twoMZBSdFtffTZCbuFfAjBqK4OHREIg9V7krCHtGGhkYVYPDnreQFklDhqyWJc0nse6W1H9zYG9Oai03txRO4HZB9knLwZDZD";
+const PAGE_ACCESS_TOKEN = "<revoked token>";
 // Imports dependencies and set up http server
 const 
   request = require('request'),
@@ -341,15 +341,21 @@ getQuote(callback)
 
 function getQuote(callback) {
     request({
-        url: "https://getquote.herokuapp.com/getmotivational",
-        method: "GET"
+        method: 'GET',
+ 		url: 'https://quotes15.p.rapidapi.com/quotes/random/',
+  		qs: {language_code: 'en'},
+  		headers: {
+   		 'x-rapidapi-host': 'quotes15.p.rapidapi.com',
+    	 'x-rapidapi-key': '<revoked>',
+    	useQueryString: true}
     }, function(error, response, body) {
         if (error) {
             console.log("Error:", error);
         } else if (response.body.error) {
             console.log("Error: ", response.body.error);
-        }     var parsedBody = JSON.parse(body);     
-		      var quote = "\"" + parsedBody.data.text + "\" - " +   parsedBody.data.author;
+        }     var parsedBody = JSON.parse(body); 
+			  console.log(parsedBody)
+		      var quote = "\"" + parsedBody.content + "\" - " +   parsedBody.originator.name ;
         	  callback(quote);
     });
 }
