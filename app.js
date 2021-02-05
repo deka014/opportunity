@@ -1,5 +1,12 @@
 'use strict';
+<<<<<<< HEAD
 const PAGE_ACCESS_TOKEN = "<revoked token>";
+=======
+
+require('dotenv').config()
+
+const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
+>>>>>>> fec1aee (Hide api keys using dot-env)
 // Imports dependencies and set up http server
 const 
   request = require('request'),
@@ -56,7 +63,7 @@ app.get('/webhook', (req, res) => {
 	console.log("recieved")
   
   /** UPDATE YOUR VERIFY TOKEN **/
-  const VERIFY_TOKEN = "opportunity_token";
+  const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
   
   // Parse params from the webhook verification request
   let mode = req.query['hub.mode'];
@@ -178,7 +185,11 @@ function getQuote(receive,callback) {
   		qs: {language_code: 'en'},
   		headers: {
    		 'x-rapidapi-host': 'quotes15.p.rapidapi.com',
+<<<<<<< HEAD
     	 'x-rapidapi-key': '<revoked>',
+=======
+    	 'x-rapidapi-key': process.env.QUOTE_API_KEY,
+>>>>>>> fec1aee (Hide api keys using dot-env)
     	useQueryString: true}
     }, function(error, response, body) {
         if (error) {
@@ -188,7 +199,7 @@ function getQuote(receive,callback) {
         }     var parsedBody = JSON.parse(body); 
 			  console.log(parsedBody)
 		      var quote = "\"" + parsedBody.content + "\" - " +   parsedBody.originator.name ;
-		      console.log(receive + "sad")
+		      console.log(receive)
         	  callback(quote);
     });
 }
